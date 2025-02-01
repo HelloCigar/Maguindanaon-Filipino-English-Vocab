@@ -22,6 +22,12 @@ import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Download, Plus } from "lucide-vue-next"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/ui/hover-card"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 </script>
 
@@ -34,12 +40,12 @@ import { ScrollArea } from "@/components/ui/scroll-area"
                 <CardContent>
                     <div class="flex justify-between items-center mb-6">
                         <Input
-                        
-                        class="w-full max-w-sm mr-4"
+                            placeholder="Search a Manguindanaon/Filipino/English word"
+                            class="w-full max-w-sm mr-4"
                         />
                         <div class="flex space-x-2">
                         <Dialog>
-                            <DialogTrigger asChild>
+                            <DialogTrigger>
                             <Button variant="outline">
                                 <Plus class="mr-2 h-4 w-4" /> Add Word
                             </Button>
@@ -80,13 +86,13 @@ import { ScrollArea } from "@/components/ui/scroll-area"
                         </div>
                     </div>
                     <div class="overflow-x-auto">
-                        <ScrollArea class="h-[500px]">
+                        <ScrollArea class="h-[600px]">
                         <Table>
                         <TableHeader>
                             <TableRow>
+                            <TableHead class="w-1/3">Manguindanaon</TableHead>
+                            <TableHead class="w-1/3">Filipino</TableHead>
                             <TableHead class="w-1/3">English</TableHead>
-                            <TableHead class="w-1/3">Spanish</TableHead>
-                            <TableHead class="w-1/3">French</TableHead>
                             </TableRow>
                         </TableHeader>
                         
@@ -103,6 +109,35 @@ import { ScrollArea } from "@/components/ui/scroll-area"
                     </div>
                     </CardContent>
             </CardHeader>
+                
+            <CardFooter>
+                <HoverCard>
+                    <HoverCardTrigger>
+                        <Button variant="link" >
+                            <span class="text-center underline italic">source</span>
+                        </Button>
+                    </HoverCardTrigger>
+                    <HoverCardContent class="w-80">
+                    <div class="flex justify-between space-x-4">
+                        <div class="space-y-1">
+                        <h4 class="text-sm font-semibold">
+                            Vocabulary: Magindanawn-Pilipino-English; Pilipino-English-Magindanawn; English-Pilipino-Magindanawn. 
+                        </h4>
+                        <p class="text-sm">
+                            Fleischman, E., Glang, N., Solaiman, M., Ayub, H. A., & Daud, F. (1981). Summer Institute of Linguistics.
+                        </p>
+                        <div class="flex items-center pt-2">
+                            <NuxtLink href="https://www.sil.org/resources/archives/23880">
+                            <span class="text-xs text-muted-foreground underline">
+                                 https://www.sil.org/resources/archives/23880
+                            </span>
+                            </NuxtLink>
+                        </div>
+                        </div>
+                    </div>
+                    </HoverCardContent>
+                </HoverCard>
+            </CardFooter>
         </Card>
     </div>
 </template>

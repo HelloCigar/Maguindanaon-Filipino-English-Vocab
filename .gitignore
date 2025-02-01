@@ -22,3 +22,11 @@ logs
 .env
 .env.*
 !.env.example
+
+backend/vocab_api/vocab/__pycache__
+backend/vocab_api/vocab/migrations/__pycache__
+backend/vocab_api/vocab/migrations/0001_initial.py
+
+backend/venv
+backend/vocab_api/db.sqlite3
+backend/vocab_api/vocab_api/__pycache__
