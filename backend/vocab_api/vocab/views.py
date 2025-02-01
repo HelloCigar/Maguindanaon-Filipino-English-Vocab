@@ -1,6 +1,7 @@
 from typing import List
 from django.shortcuts import render
 from django.db.models import Q
+from django.db.utils import IntegrityError
 
 # Create your views here.
 
@@ -18,7 +19,6 @@ class TranslationSchema(Schema):
 class Error(Schema):
     error: str
 
-
 @api.get("/translate", response=List[TranslationSchema])
 @paginate(PageNumberPagination, page_size=50)
 def translate_word(request, word: str):
@@ -35,11 +35,16 @@ def translate_word(request, word: str):
     except AttributeError:
         return 404, {"error": "Word not found"}
     
-@api.post("/add_word", response={200: TranslationSchema, 400: Error})
+class SuccessSchema(Schema):
+    success: bool
+    message: str = None
+
+
+@api.post("/add_word", response={200: SuccessSchema, 200: SuccessSchema})
 def add_word(request, translation: TranslationSchema):
     try:
         new_translation = Translation(english=translation.english, filipino=translation.filipino, maguindanaon=translation.maguindanaon)        
         new_translation.save()
-        return 200, new_translation
-    except AttributeError:
-        return 400, {"error": "Word already exists"}
+        return 200, {"success": True, "message": "Word submitted and will be evaluated. Thank you for your contribution!"} 
+    except IntegrityError:
+        return 200, {"success": False, "message": "Sorry, the word already exists"}
