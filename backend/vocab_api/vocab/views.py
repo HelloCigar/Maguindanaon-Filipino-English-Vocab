@@ -5,6 +5,7 @@ from django.db.models import Q
 # Create your views here.
 
 from ninja import NinjaAPI, Schema
+from ninja.pagination import paginate, PageNumberPagination
 from .models import Translation
 
 api = NinjaAPI()
@@ -18,7 +19,8 @@ class Error(Schema):
     error: str
 
 
-@api.get("/translate", response={200: List[TranslationSchema], 404: Error})
+@api.get("/translate", response=List[TranslationSchema])
+@paginate(PageNumberPagination, page_size=15)
 def translate_word(request, word: str):
     try:
         # get all related translations
@@ -29,7 +31,7 @@ def translate_word(request, word: str):
         #filter by approved
         translation = list(filter(lambda x: x.approved, translation))
 
-        return 200, translation
+        return translation
     except AttributeError:
         return 404, {"error": "Word not found"}
     

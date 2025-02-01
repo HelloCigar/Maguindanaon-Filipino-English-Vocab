@@ -21,9 +21,6 @@ const props = defineProps({
   perPage: { type: Number, default: 10 }  // Items per page (default: 10)
 })
 
-// Compute total pages
-const totalPages = Math.ceil(props.total / props.perPage)
-
 // Define emit event for sending page to the parent
 const emit = defineEmits(['update:page'])
 
@@ -38,7 +35,7 @@ const onPageChange = (newPage: number) => {
 </script>
 
 <template>
-  <Pagination v-slot="{ page }" :total="totalPages" :sibling-count="1" show-edges :default-page="currentPage" @update:page="onPageChange">
+  <Pagination v-slot="{ page }" :total="total" :items-per-page="perPage" :sibling-count="1" show-edges :default-page="currentPage" @update:page="onPageChange">
     <PaginationList v-slot="{ items }" class="flex items-center gap-1">
       <PaginationFirst />
       <PaginationPrev />

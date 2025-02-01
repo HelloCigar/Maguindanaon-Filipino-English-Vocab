@@ -22,33 +22,36 @@ import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Download, Plus } from "lucide-vue-next"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "@/components/ui/hover-card"
 
+// Example: Total items and per-page count
+const totalItems = ref(0) // Change this dynamically
+const perPage = ref(15)
 
 const query = ref("")
+const currentPage = ref(1)
 const { data: wordlist } = await useAsyncData(
   'wordlist',
   () => $fetch('/api/query', {
     method: 'GET',
     query: {
-      word: query.value
+      word: query.value,
+      page: currentPage.value
     }
+  }).then((res) =>{
+    totalItems.value = res.count
+    return res
   }), {
-    watch: [query]
+    watch: [query, currentPage]
   }
 )
 
-// Example: Total items and per-page count
-const totalItems = ref(250) // Change this dynamically
-const perPage = ref(10)
+console.log(totalItems.value)
+
 
 // Handle page change event
 const handlePageChange = (page: number) => {
   console.log('Current Page:', page)
+  currentPage.value = page
 }
 </script>
 
@@ -120,7 +123,7 @@ const handlePageChange = (page: number) => {
                         </TableHeader>
                         
                         <TableBody>
-                            <TableRow v-for="word in wordlist">
+                            <TableRow v-for="word in wordlist?.items">
                                 <TableCell>{{ word.maguindanaon }}</TableCell>
                                 <TableCell>{{ word.filipino }}</TableCell>
                                 <TableCell>{{ word.english }}</TableCell>
