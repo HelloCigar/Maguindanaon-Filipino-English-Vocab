@@ -45,9 +45,6 @@ const { data: wordlist } = await useAsyncData(
   }
 )
 
-console.log(totalItems.value)
-
-
 // Handle page change event
 const handlePageChange = (page: number) => {
   console.log('Current Page:', page)
@@ -109,6 +106,7 @@ const handlePageChange = (page: number) => {
                         <Button variant="outline">
                             <Download class="mr-2 h-4 w-4" /> Download CSV
                         </Button>
+                        <DarkModeToggle />
                         </div>
                     </div>
                     <div class="overflow-x-auto">

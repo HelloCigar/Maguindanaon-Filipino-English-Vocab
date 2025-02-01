@@ -3,7 +3,11 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
   ssr: false,
-
+  colorMode: {
+    classSuffix: '',
+    preference: 'system',
+    fallback: 'dark',
+  },
   shadcn: {
     /**
      * Prefix for all the imported component
@@ -16,5 +20,5 @@ export default defineNuxtConfig({
     componentDir: './components/ui'
   },
 
-  modules: ['shadcn-nuxt']
+  modules: ['shadcn-nuxt', '@nuxtjs/color-mode']
 })
