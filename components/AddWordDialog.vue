@@ -60,7 +60,7 @@ import { FormControl, FormField, FormLabel } from "@/components/ui/form"
         <DialogHeader>
             <DialogTitle>Add New Word</DialogTitle>
         </DialogHeader>
-        <Form class="space-y-4" @submit="onSubmit">
+        <form class="space-y-4" @submit="onSubmit">
             <FormField class="space-y-2" v-slot="{ componentField }" name="maguindanaon">
                 <FormItem>
                     <FormLabel>Maguindanaon</FormLabel>
@@ -93,7 +93,7 @@ import { FormControl, FormField, FormLabel } from "@/components/ui/form"
                     <Button type="button" variant="outline" class="w-full sm:w-auto">Cancel</Button>
                 </DialogClose>
              </DialogFooter>
-        </Form>
+            </form>
         </DialogContent>
     </Dialog>
 </template>
