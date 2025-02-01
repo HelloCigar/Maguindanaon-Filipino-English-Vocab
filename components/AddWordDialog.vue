@@ -52,11 +52,11 @@ import { FormControl, FormField, FormLabel } from "@/components/ui/form"
 <template>
     <Dialog>
         <DialogTrigger>
-        <Button variant="outline">
+        <Button variant="outline" class="sm:w-auto">
             <Plus class="mr-2 h-4 w-4" /> Add Word
         </Button>
         </DialogTrigger>
-        <DialogContent class="sm:max-w-[425px]">
+        <DialogContent  class="sm:max-w-[425px] w-[95vw] max-w-[95vw] sm:w-full">
         <DialogHeader>
             <DialogTitle>Add New Word</DialogTitle>
         </DialogHeader>
@@ -85,9 +85,14 @@ import { FormControl, FormField, FormLabel } from "@/components/ui/form"
                     </FormControl>
                 </FormItem>
             </FormField>
-            <DialogClose as-child>
-                <Button type="submit">Add Word</Button>
-            </DialogClose>
+            <DialogFooter class="mt-6">
+                <DialogClose as-child>
+                    <Button type="submit" class="w-full sm:w-auto mt-2 sm:mt-0">Add Word</Button>
+                </DialogClose>
+                <DialogClose as-child>
+                    <Button type="button" variant="outline" class="w-full sm:w-auto">Cancel</Button>
+                </DialogClose>
+             </DialogFooter>
         </Form>
         </DialogContent>
     </Dialog>
