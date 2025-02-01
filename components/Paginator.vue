@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref, defineProps, defineEmits } from 'vue'
 import { 
   Button,
 } from '@/components/ui/button'
@@ -48,7 +47,6 @@ const onPageChange = (newPage: number) => {
         </PaginationListItem>
         <PaginationEllipsis v-else :key="item.type" :index="index" />
       </template>
-
       <PaginationNext />
       <PaginationLast />
     </PaginationList>

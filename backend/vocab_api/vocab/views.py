@@ -20,7 +20,7 @@ class Error(Schema):
 
 
 @api.get("/translate", response=List[TranslationSchema])
-@paginate(PageNumberPagination, page_size=15)
+@paginate(PageNumberPagination, page_size=50)
 def translate_word(request, word: str):
     try:
         # get all related translations

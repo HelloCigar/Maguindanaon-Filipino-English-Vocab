@@ -8,24 +8,12 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { Button } from "@/components/ui/button"
-import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
-import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
-import { Download, Plus } from "lucide-vue-next"
-import { ScrollArea } from "@/components/ui/scroll-area"
+import { Download } from "lucide-vue-next"
 
 // Example: Total items and per-page count
 const totalItems = ref(0) // Change this dynamically
-const perPage = ref(15)
+const perPage = ref(50)
 
 const query = ref("")
 const currentPage = ref(1)
@@ -67,42 +55,7 @@ const handlePageChange = (page: number) => {
                             class="w-full max-w-sm mr-4"
                         />
                         <div class="flex space-x-2">
-                        <Dialog>
-                            <DialogTrigger>
-                            <Button variant="outline">
-                                <Plus class="mr-2 h-4 w-4" /> Add Word
-                            </Button>
-                            </DialogTrigger>
-                            <DialogContent class="sm:max-w-[425px]">
-                            <DialogHeader>
-                                <DialogTitle>Add New Word</DialogTitle>
-                            </DialogHeader>
-                            <form class="space-y-4">
-                                <div>
-                                <Label htmlFor="english">English</Label>
-                                <Input
-                                    id="english"
-                                    required
-                                />
-                                </div>
-                                <div>
-                                <Label htmlFor="spanish">Spanish</Label>
-                                <Input
-                                    id="spanish"
-                                    required
-                                />
-                                </div>
-                                <div>
-                                <Label htmlFor="french">French</Label>
-                                <Input
-                                    id="french"
-                                    required
-                                />
-                                </div>
-                                <Button type="submit">Add Word</Button>
-                            </form>
-                            </DialogContent>
-                        </Dialog>
+                        <AddWordDialog />
                         <Button variant="outline">
                             <Download class="mr-2 h-4 w-4" /> Download CSV
                         </Button>
@@ -110,32 +63,13 @@ const handlePageChange = (page: number) => {
                         </div>
                     </div>
                     <div class="overflow-x-auto">
-                        <ScrollArea class="h-[600px]">
-                        <Table>
-                        <TableHeader>
-                            <TableRow>
-                            <TableHead class="w-1/3">Manguindanaon</TableHead>
-                            <TableHead class="w-1/3">Filipino</TableHead>
-                            <TableHead class="w-1/3">English</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        
-                        <TableBody>
-                            <TableRow v-for="word in wordlist?.items">
-                                <TableCell>{{ word.maguindanaon }}</TableCell>
-                                <TableCell>{{ word.filipino }}</TableCell>
-                                <TableCell>{{ word.english }}</TableCell>
-                            </TableRow>
-                        </TableBody>
-                        
-                        </Table>
-                    </ScrollArea>
+                        <WordTable v-if="wordlist" :wordlist="wordlist.items" />
                     </div>
                 </CardContent>
             </CardHeader>
             <CardFooter class="flex justify-between">
                 <SourceCard />
-                <Pages 
+                <Paginator
                     :total="totalItems" 
                     :perPage="perPage"
                     @update:page="handlePageChange" 
