@@ -23,24 +23,51 @@ const props = defineProps({
 })
 
 </script>
+
 <template>
-    <ScrollArea class="h-[600px]">
-        <Table>
+  <div class="w-full">
+    <ScrollArea class="h-[400px] sm:h-[600px]">
+      <Table>
         <TableHeader>
-            <TableRow>
-            <TableHead class="w-1/3">Manguindanaon</TableHead>
-            <TableHead class="w-1/3">Filipino</TableHead>
-            <TableHead class="w-1/3">English</TableHead>
-            </TableRow>
+          <TableRow>
+            <TableHead class="whitespace-nowrap">Manguindanaon</TableHead>
+            <TableHead class="whitespace-nowrap">Filipino</TableHead>
+            <TableHead class="whitespace-nowrap">English</TableHead>
+          </TableRow>
         </TableHeader>
         
         <TableBody>
-            <TableRow v-for="word in wordlist">
-                <TableCell>{{ word.maguindanaon }}</TableCell>
-                <TableCell>{{ word.filipino }}</TableCell>
-                <TableCell>{{ word.english }}</TableCell>
-            </TableRow>
+          <TableRow v-for="word in wordlist" :key="word.maguindanaon">
+            <TableCell class="font-medium break-words">{{ word.maguindanaon }}</TableCell>
+            <TableCell class="break-words">{{ word.filipino }}</TableCell>
+            <TableCell class="break-words">{{ word.english }}</TableCell>
+          </TableRow>
         </TableBody>
-        </Table>
-        </ScrollArea>
+      </Table>
+    </ScrollArea>
+  </div>
 </template>
+
+<style scoped>
+:deep(table) {
+  width: 100%;
+  table-layout: fixed;
+}
+
+:deep(th),
+:deep(td) {
+  padding: 0.75rem;
+  vertical-align: top;
+}
+
+@media (max-width: 640px) {
+  :deep(table) {
+    font-size: 0.875rem;
+  }
+  
+  :deep(th),
+  :deep(td) {
+    padding: 0.5rem;
+  }
+}
+</style>

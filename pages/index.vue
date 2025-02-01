@@ -69,19 +69,21 @@ const handleDownloadCSV = () => {
             placeholder="Search a word"
             class="w-full sm:max-w-sm sm:mr-4"
           />
-          <div class="flex flex-wrap justify-center sm:justify-start space-x-2 space-y-2 sm:space-y-0">
-            <AddWordDialog />
-            <Button variant="outline" class="w-full sm:w-auto" @click="handleDownloadCSV">
-              <Download class="mr-2 h-4 w-4" /> CSV
-            </Button>
-            <DarkModeToggle />
+          <div class="flex justify-center sm:justify-start space-x-2 space-y-2 sm:space-y-0 sm:flex-row">
+            <div class="flex flex-col sm:flex-row gap-2">
+              <AddWordDialog />
+              <Button variant="outline" class="w-full sm:w-auto" @click="handleDownloadCSV">
+                <Download class="mr-2 h-4 w-4" /> CSV
+              </Button>
+              <DarkModeToggle />
+          </div>
           </div>
         </div>
         <div class="overflow-x-auto">
           <WordTable v-if="wordlist" :wordlist="wordlist.items" />
         </div>
       </CardContent>
-      <CardFooter class="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
+      <CardFooter class="flex flex-col sm:flex-row sm:justify-center md:justify-between items-center space-y-4 sm:space-y-0">
         <SourceCard class="w-full sm:w-auto" />
         <Paginator
           :total="totalItems" 
