@@ -10,6 +10,8 @@ import {
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Download } from "lucide-vue-next"
+import { Skeleton } from "@/components/ui/skeleton"
+
 
 // Example: Total items and per-page count
 const totalItems = ref(0) // Change this dynamically
@@ -17,7 +19,7 @@ const perPage = ref(50)
 
 const query = ref("")
 const currentPage = ref(1)
-const { data: wordlist } = await useAsyncData(
+const { data: wordlist, status } = await useAsyncData(
   'wordlist',
   () => $fetch('/api/query', {
     method: 'GET',
@@ -79,8 +81,14 @@ const handleDownloadCSV = () => {
           </div>
           </div>
         </div>
-        <div class="overflow-x-auto">
+        <div class="overflow-x-auto" v-if="status === 'success'">
           <WordTable v-if="wordlist" :wordlist="wordlist.items" />
+        </div>
+        <div v-else class="h-[500px] w-full space-y-4">
+          <div class="space-y-4" v-for="i in 6">
+            <Skeleton class="h-6 w-full" />
+            <Skeleton class="h-6 w-10/12" />
+          </div>
         </div>
       </CardContent>
       <CardFooter class="flex flex-col sm:flex-row sm:justify-center md:justify-between items-center space-y-4 sm:space-y-0">

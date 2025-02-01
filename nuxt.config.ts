@@ -19,6 +19,11 @@ export default defineNuxtConfig({
      */
     componentDir: './components/ui'
   },
+  runtimeConfig:{
+    public: {
+      API_BASE_URL: "https://0601-111-125-83-172.ngrok-free.app"
+    }
+  },
 
   modules: ['shadcn-nuxt', '@nuxtjs/color-mode']
 })
