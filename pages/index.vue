@@ -27,8 +27,29 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
+
+const query = ref("")
+const { data: wordlist } = await useAsyncData(
+  'wordlist',
+  () => $fetch('/api/query', {
+    method: 'GET',
+    query: {
+      word: query.value
+    }
+  }), {
+    watch: [query]
+  }
+)
+
+// Example: Total items and per-page count
+const totalItems = ref(250) // Change this dynamically
+const perPage = ref(10)
+
+// Handle page change event
+const handlePageChange = (page: number) => {
+  console.log('Current Page:', page)
+}
 </script>
 
 <template>
@@ -40,6 +61,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
                 <CardContent>
                     <div class="flex justify-between items-center mb-6">
                         <Input
+                            id="search"
+                            v-model="query"
                             placeholder="Search a Manguindanaon/Filipino/English word"
                             class="w-full max-w-sm mr-4"
                         />
@@ -97,46 +120,25 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
                         </TableHeader>
                         
                         <TableBody>
-                            <TableRow v-for="word in 100" :key="word">
-                                <TableCell>{word}</TableCell>
-                                <TableCell>{word}</TableCell>
-                                <TableCell>{word}</TableCell>
+                            <TableRow v-for="word in wordlist">
+                                <TableCell>{{ word.maguindanaon }}</TableCell>
+                                <TableCell>{{ word.filipino }}</TableCell>
+                                <TableCell>{{ word.english }}</TableCell>
                             </TableRow>
                         </TableBody>
                         
                         </Table>
                     </ScrollArea>
                     </div>
-                    </CardContent>
+                </CardContent>
             </CardHeader>
-                
-            <CardFooter>
-                <HoverCard>
-                    <HoverCardTrigger>
-                        <Button variant="link" >
-                            <span class="text-center underline italic">source</span>
-                        </Button>
-                    </HoverCardTrigger>
-                    <HoverCardContent class="w-80">
-                    <div class="flex justify-between space-x-4">
-                        <div class="space-y-1">
-                        <h4 class="text-sm font-semibold">
-                            Vocabulary: Magindanawn-Pilipino-English; Pilipino-English-Magindanawn; English-Pilipino-Magindanawn. 
-                        </h4>
-                        <p class="text-sm">
-                            Fleischman, E., Glang, N., Solaiman, M., Ayub, H. A., & Daud, F. (1981). Summer Institute of Linguistics.
-                        </p>
-                        <div class="flex items-center pt-2">
-                            <NuxtLink href="https://www.sil.org/resources/archives/23880">
-                            <span class="text-xs text-muted-foreground underline">
-                                 https://www.sil.org/resources/archives/23880
-                            </span>
-                            </NuxtLink>
-                        </div>
-                        </div>
-                    </div>
-                    </HoverCardContent>
-                </HoverCard>
+            <CardFooter class="flex justify-between">
+                <SourceCard />
+                <Pages 
+                    :total="totalItems" 
+                    :perPage="perPage"
+                    @update:page="handlePageChange" 
+                />
             </CardFooter>
         </Card>
     </div>
