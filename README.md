@@ -1,5 +1,5 @@
 # Nuxt Minimal Starter
-
+[![Netlify Status](https://api.netlify.com/api/v1/badges/47431d34-71ae-488b-9ecb-c5c00619ea54/deploy-status)](https://app.netlify.com/sites/maguindanaon-filipino-english-vocab/deploys)
 Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
 ## Setup
