@@ -21,7 +21,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig:{
     public: {
-      API_BASE_URL: "https://0601-111-125-83-172.ngrok-free.app"
+      API_BASE_URL: process.env.API_BASE_URL
     }
   },
 
